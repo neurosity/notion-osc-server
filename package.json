@@ -1,0 +1,33 @@
+{
+  "name": "notion-osc-server",
+  "version": "1.0.0",
+  "description": "Simulator for the OSC server that runs on Notion's OS",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "npx ts-node ./src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neurosity/notion-osc-server.git"
+  },
+  "keywords": [
+    "notion",
+    "osc",
+    "eeg",
+    "brainflow"
+  ],
+  "author": "Alex Castillo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/neurosity/notion-osc-server/issues"
+  },
+  "homepage": "https://github.com/neurosity/notion-osc-server#readme",
+  "dependencies": {
+    "@types/node": "^14.0.13",
+    "async-exit-hook": "^2.0.1",
+    "dotenv": "^8.2.0",
+    "osc": "^2.4.1",
+    "rxjs": "^6.5.5",
+    "typescript": "^3.9.5"
+  }
+}
