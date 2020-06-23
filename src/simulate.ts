@@ -11,9 +11,10 @@ export function createSamplesStream() {
 
 function getSample(i: number): Sample {
   const offset = (i * 1000) / samplingRate;
+  var time = new Number((startTime + offset) / 1000.0);
   return {
     count: i % samplingRate,
-    timestamp: startTime + offset,
+    timestamp: time.toString(),
     data: Array.from({ length: channels }, getRandomAmplitude)
   };
 }

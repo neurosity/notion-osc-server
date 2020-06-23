@@ -61,7 +61,7 @@ export class OSC {
           value: channelAmplitude
         })),
         {
-          type: "i",
+          type: "s",
           value: sample.timestamp
         },
         {
