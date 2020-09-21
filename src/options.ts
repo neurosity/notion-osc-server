@@ -28,3 +28,6 @@ export const oscRemoteHost =
 
 export const oscRemotePort =
   Number(process.env.NEUROSITY_OSC_REMOTE_PORT) || 9000;
+
+export const oscDataFormat =
+  process.env.NEUROSITY_OSC_DATA_FORMAT || "brainflow";

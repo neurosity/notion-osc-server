@@ -6,7 +6,8 @@ import {
   oscLocalHost,
   oscLocalPort,
   oscRemoteHost,
-  oscRemotePort
+  oscRemotePort,
+  oscDataFormat
 } from "./options";
 
 import { Sample } from "./types/Sample";
@@ -52,7 +53,31 @@ export class OSC {
     });
   }
 
-  nextSample(sample: Sample) {
+  nextNeuromoreSample(sample: Sample) {
+    let packet;
+
+    sample.data.forEach((channelAmplitude, channelIndex) => {
+      const channel = (
+        channelNames?.[channelIndex] ?? ""
+      ).toLowerCase();
+
+      packet = {
+        address: `/neurosity/notion/${deviceId}/${channel}`,
+        args: [
+          {
+            type: "f",
+            value: channelAmplitude
+          }
+        ]
+      };
+
+      this.osc.send(packet);
+    });
+
+    return packet;
+  }
+
+  nextBrainFlowSample(sample: Sample) {
     const packet = {
       address: `/neurosity/notion/${deviceId}/raw`,
       args: [
@@ -78,6 +103,16 @@ export class OSC {
     this.osc.send(packet);
 
     return packet;
+  }
+
+  nextSample(sample: Sample) {
+    if (oscDataFormat === "brainflow") {
+      return this.nextBrainFlowSample(sample);
+    }
+
+    if (oscDataFormat === "neuromore") {
+      return this.nextNeuromoreSample(sample);
+    }
   }
 
   disconnect() {
