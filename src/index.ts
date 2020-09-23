@@ -1,6 +1,6 @@
 import { OSC } from "./server";
 import { createSamplesStream } from "./simulate";
-import exitHook from "async-exit-hook";
+import * as exitHook from "async-exit-hook";
 
 const oscServer = new OSC();
 
