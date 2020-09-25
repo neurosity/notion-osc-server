@@ -23,9 +23,6 @@ export const oscLocalHost =
 export const oscLocalPort =
   Number(process.env.NEUROSITY_OSC_LOCAL_PORT) || 8000;
 
-export const oscRemoteHost =
-  process.env.NEUROSITY_OSC_REMOTE_HOST || "192.168.0.255";
-
 export const oscRemotePort =
   Number(process.env.NEUROSITY_OSC_REMOTE_PORT) || 9000;
 

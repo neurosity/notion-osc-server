@@ -5,17 +5,19 @@ import {
   channelNames,
   oscLocalHost,
   oscLocalPort,
-  oscRemoteHost,
   oscRemotePort,
   oscDataFormat
 } from "./options";
 
 import { Sample } from "./types/Sample";
+import { getSubnetBroadcastAddress } from "./getSubnetBroadcastAddress";
 
 export class OSC {
   osc: UDPPort;
 
   constructor() {
+    const oscRemoteHost = getSubnetBroadcastAddress("en0");
+
     this.osc = new UDPPort({
       localAddress: oscLocalHost,
       localPort: oscLocalPort,
