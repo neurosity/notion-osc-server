@@ -1,7 +1,16 @@
 import { UDPPort } from "osc";
+import { timer, Subject, Subscription } from "rxjs";
+import { takeUntil } from "rxjs/operators";
 
 import {
   deviceId,
+  deviceNickname,
+  channels,
+  model,
+  modelName,
+  modelVersion,
+  manufacturer,
+  samplingRate,
   channelNames,
   oscLocalHost,
   oscLocalPort,
@@ -14,6 +23,7 @@ import { getSubnetBroadcastAddress } from "./getSubnetBroadcastAddress";
 
 export class OSC {
   osc: UDPPort;
+  disconnectSubject: Subject<boolean> = new Subject();
 
   constructor() {
     const oscRemoteHost = getSubnetBroadcastAddress("en0");
@@ -34,6 +44,59 @@ export class OSC {
     });
 
     this.osc.open();
+
+    this.sendDeviceInfo();
+  }
+
+  sendDeviceInfo(): Subscription {
+    const packet = {
+      address: `/neurosity/notion/${deviceId}/info`,
+      args: [
+        {
+          type: "s",
+          value: deviceId
+        },
+        {
+          type: "s",
+          value: deviceNickname
+        },
+        {
+          type: "s",
+          value: model
+        },
+        {
+          type: "s",
+          value: modelName
+        },
+        {
+          type: "s",
+          value: modelVersion
+        },
+        {
+          type: "s",
+          value: manufacturer
+        },
+        {
+          type: "i",
+          value: samplingRate
+        },
+        {
+          type: "i",
+          value: channels
+        },
+        {
+          type: "s",
+          value: channelNames.join(",")
+        }
+      ]
+    };
+
+    // Send every second
+    return timer(0, 1000)
+      .pipe(takeUntil(this.disconnectSubject))
+      .subscribe(() => {
+        this.osc.send(packet);
+      });
   }
 
   // Neuromore compatible format
@@ -119,6 +182,7 @@ export class OSC {
 
   disconnect() {
     this.osc.close();
+    this.disconnectSubject.next(true);
     console.info(`osc: port disconnected`);
   }
 }

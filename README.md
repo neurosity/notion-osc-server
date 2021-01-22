@@ -1,6 +1,8 @@
 # Notion OSC Server
 
-Created to test integration with [BrainFlow](https://github.com/brainflow-dev/brainflow).
+The purpose of this project is to be able to test the Neurosity OS functionality for OSC Streaming. The code in this repo mimics the OSC server running on Neurosity devices.
+
+Created to test integration with [BrainFlow](https://github.com/brainflow-dev/brainflow) and [Neuromore Studio](https://neuromore.com).
 
 ### Setup
 
@@ -16,6 +18,8 @@ Created to test integration with [BrainFlow](https://github.com/brainflow-dev/br
 
 ```
 NEUROSITY_DEVICE_UUID=local7cca794fb5f4675a69371e949b2
+NEUROSITY_DEVICE_MODEL_NAME=Notion
+NEUROSITY_DEVICE_MODEL_VERSION=2
 NEUROSITY_DEVICE_SAMPLING_RATE=250
 NEUROSITY_DEVICE_CHANNELS=8
 NEUROSITY_DEVICE_CHANNEL_NAMES=CP6,F6,C4,CP4,CP3,F5,C3,CP5
